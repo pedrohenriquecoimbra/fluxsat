@@ -20,7 +20,7 @@ import logging
 ee.Authenticate()
 
 # Initialize the library.
-ee.Initialize()
+ee.Initialize(project='ee-icostower')
 
 
 def are_we_in_jupyter():
@@ -88,7 +88,7 @@ class eengine():
         return
     
 
-    def add_bands(self, newbands={'COPERNICUS/S2_SR_HARMONIZED': {'NDVI': '(NIR - RED) / (NIR + RED)'}}):
+    def add_bands(self, newbands={'COPERNICUS/S2_SR_HARMONIZED': {'NDVI': '(NIR - RED) / (NIR + RED)'},}):
         for c, b in newbands.items():
             for k, v in b.items():
                 self.collection[c] = self.collection[c].map(lambda x: add_index(x, k, v))
@@ -135,7 +135,7 @@ class eengine():
             map_shw.add_layer(img_shw, v, k)
         display(map_shw)
 
-    def download(self, folder="Grignon/Satellites/", to_cloud=True, rclone_path = r'C:\Users\phherigcoimb\Documents\rclone-v1.66.0-windows-amd64',
+    def download(self, folder="Grignon/Satellites/", to_cloud=False, rclone_path = r'$HOME\Documents\rclone-v1.66.0-windows-amd64',
                  selected_bands=None):
         assert self.collection, 'DOWNLOAD NOT POSSIBLE. The self.collection element is empty.'
 
